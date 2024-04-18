@@ -1,6 +1,3 @@
-Claro, aquí tienes el mismo contenido en formato .md:
-
-```markdown
 # MyRestfulApp-NET
 Desafío Nubimetrics para el área de BackEnd
 
@@ -79,4 +76,3 @@ Al ser ejecutado el proyecto se debe poder consumir datos de los siguientes endp
 **El objetivo es que se logre almacenar en disco un json con la estructura que devuelve el endpoint [Api Currencies de Mercado Libre](https://api.mercadolibre.com/currencies). Adicionalmente se debe incluir una nueva property "todolar" con el resultado del endpoint [Api Currency Conversion de Mercado Libre](https://api.mercadolibre.com/currency_conversions). Tené en cuenta que: El endpoint [Currency Conversion](https://api.mercadolibre.com/currency_conversions/toars) toma como parámetro en "from" el id de moneda correspondiente a un país. Id que es devuelto por el endpoint [Currencies](https://api.mercadolibre.com/currencies) - Para más información podés consultar la documentación de [Mercado Libre](https://developers.mercadolibre.com.ar/es_ar/currencies-and-conversions).**
 
 **Adicionalmente la misma aplicación tiene que almacenar en disco un archivo csv con cada uno de los resultados obtenidos de "currency_conversions", es decir debe almacenar sólo los resultados obtenidos de la property "ratio" (Ej: 0.0147275,0.013651,0.727565).**
-```
