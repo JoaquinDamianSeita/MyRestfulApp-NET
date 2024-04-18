@@ -1,9 +1,3 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-
 namespace MyRestfulApp_NET
 {
     public class Startup
@@ -42,6 +36,9 @@ namespace MyRestfulApp_NET
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+
+            // Agregar middleware para manejar excepciones personalizadas
+            app.UseMiddleware<CustomExceptionHandlerMiddleware>();
 
             // Agregar middleware para redirigir HTTP a HTTPS
             app.UseHttpsRedirection();

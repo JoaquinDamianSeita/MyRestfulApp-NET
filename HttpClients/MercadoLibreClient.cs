@@ -1,9 +1,4 @@
-using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
+using MyRestfulApp_NET.Common.Exceptions;
 
 public class Country
 {
@@ -55,26 +50,11 @@ public class MercadoLibreClient : IMercadoLibreClient
 
     public async Task<Country> GetCountryInfo(string countryCode)
     {
-        try
-        {
-            var getCountryInfoUrl = _configuration.GetValue<string>("HttpClients:MercadoLibre:GetCountryInfo");
-            var response = await _client.GetAsync($"{getCountryInfoUrl}/{countryCode}");
-
-            if (response.IsSuccessStatusCode)
-            {
-                var jsonString = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<Country>(jsonString);
-            }
-            else
-            {
-                // Handle error response
-                return null;
-            }
-        }
-        catch (Exception ex)
-        {
-            // Handle exception
-            return null;
-        }
+        var getCountryInfoUrl = _configuration.GetValue<string>("HttpClients:MercadoLibre:GetCountryInfo");
+        var response = await _client.GetAsync($"{getCountryInfoUrl}/{countryCode}");
+        if (response.IsSuccessStatusCode)
+            return await response.Content.ReadAsAsync<Country>();
+        
+        throw new ExternalApiException($"Mercado Libre API HTTP Code {response.StatusCode} with country code {countryCode}",  StatusCodes.Status404NotFound);
     }
 }

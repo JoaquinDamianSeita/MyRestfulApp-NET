@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Net;
 
 namespace MyRestfulApp_NET.Controllers
 {
@@ -22,24 +20,14 @@ namespace MyRestfulApp_NET.Controllers
         [ProducesResponseType(401)]
         public async Task<IActionResult> GetPais(string pais)
         {
-            switch (pais.ToUpper())
-            {
-                case "AR":
-                    var informacionPais = await _paisesService.ObtenerInformacionPais(pais.ToUpper());
-                    if (informacionPais == null)
-                    {
-                        return NotFound($"País {pais} no encontrado");
-                    }
+            var paisUpper = pais.ToUpper();
 
-                    return Ok(informacionPais);
-                case "BR":
-                case "CO":
-                    // Retorna un error 401 Unauthorized para los países BR y CO
-                    return StatusCode((int)HttpStatusCode.Unauthorized);
-                default:
-                    // Retorna un error 404 Not Found si el país no está soportado
-                    return NotFound($"País {pais} no encontrado");
-            }
+            if (paisUpper.Equals("BR") || paisUpper.Equals("CO"))
+                return Unauthorized(new { Message = "País inválido para la consulta." });     
+
+            var informacionPais = await _paisesService.ObtenerInformacionPais(pais.ToUpper());
+
+            return Ok(informacionPais);
         }
     }
 }
