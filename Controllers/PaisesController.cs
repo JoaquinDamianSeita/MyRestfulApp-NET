@@ -4,7 +4,6 @@ namespace MyRestfulApp_NET.Controllers
 {
     [Produces("application/json")]
     [ProducesResponseType(200)]
-    [ProducesResponseType(400)]
     [ProducesResponseType(401)]
     [ApiController]
     public class PaisesController : BaseController
@@ -17,6 +16,7 @@ namespace MyRestfulApp_NET.Controllers
         }
 
         [HttpGet("{pais}")]
+        [ProducesResponseType(200)]
         [ProducesResponseType(401)]
         public async Task<IActionResult> GetPais(string pais)
         {
@@ -25,9 +25,9 @@ namespace MyRestfulApp_NET.Controllers
             if (paisUpper.Equals("BR") || paisUpper.Equals("CO"))
                 return Unauthorized(new { Message = "País inválido para la consulta." });     
 
-            var informacionPais = await _paisesService.ObtenerInformacionPais(pais.ToUpper());
+            var countryInfo = await _paisesService.ObtenerInformacionPais(paisUpper);
 
-            return Ok(informacionPais);
+            return Ok(countryInfo);
         }
     }
 }
