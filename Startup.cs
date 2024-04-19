@@ -14,6 +14,7 @@ namespace MyRestfulApp_NET
             services.AddControllers();
 
             services.AddScoped<IPaisesService, PaisesService>();
+            services.AddScoped<IBusquedaService, BusquedaService>();
 
             services.AddHttpClient<IMercadoLibreClient, MercadoLibreClient>();
 
