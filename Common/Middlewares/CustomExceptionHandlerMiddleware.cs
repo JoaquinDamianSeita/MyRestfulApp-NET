@@ -1,7 +1,7 @@
-namespace MyRestfulApp_NET.Common.Middlewares;
-
 using MyRestfulApp_NET.Common.Exceptions;
 using Newtonsoft.Json;
+
+namespace MyRestfulApp_NET.Common.Middlewares;
 
 public class CustomExceptionHandlerMiddleware
 {
