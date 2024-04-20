@@ -1,3 +1,6 @@
+using MyRestfulApp_NET.Domain.HttpClients;
+using MyRestfulApp_NET.HttpClients.Resources;
+
 namespace MyRestfulApp_NET.Domain.Services;
 
 public class PaisesService : IPaisesService

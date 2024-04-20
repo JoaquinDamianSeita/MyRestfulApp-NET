@@ -25,6 +25,7 @@
 bld/
 [Bb]in/
 [Oo]bj/
+[Dd]ata/*
 
 # Visual Studio 2015 cache/options directory
 .vs/
@@ -246,42 +247,3 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
-
-/POCs/PruebaOledb/PruebaOledb
-#/POCs/PruebaNhibernate/packages
-/POCs/Nhibernate_20170913_Queries.txt
-/POCs/Nhibernate.txt
-/POCs/Nhibernate.Progress_20170913.txt
-/POCs/Nhibernate.ISeries_20170913.txt
-/POCs/Nhibernate.Progress_20170914.txt
-/POCs/Nhibernate.Progress_20170913_Queries.txt
-/POCs/Nhibernate.Progress_20170913_2.txt
-/POCs/Nhibernate.ISeries_20170916_Queries.txt
-/POCs/Nhibernate.ISeries_20170916_2.txt
-/POCs/Nhibernate.ISeries_20170916.txt
-/POCs/Nhibernate.ISeries_20170914.txt
-/POCs/Nhibernate.ISeries_20170913_Queries.txt
-/POCs/Nhibernate.ISeries_20170913_2.txt
-/POCs/EntityFramework_20170916_Queries.txt
-/POCs/EntityFramework_20170916.txt
-/POCs/EntityFramework_20170915_Queries.txt
-/POCs/EntityFramework_20170915.txt
-/POCs/EntityFramework_20170914.txt
-/POCs/EntityFramework_20170913_Queries.txt
-/POCs/EntityFramework_20170913_2.txt
-/POCs/EntityFramework_20170913.txt
-/POCs/EntityFramework.txt
-/POCs/ADONet_20170917.txt
-/POCs/ADONet_20170916.txt
-/PruebaPassword
-
-/OficinaVirtual/OficinaVirtual.Backend/ClassLibrary1
-/OficinaVirtual/OficinaVirtual.Backend/OficinaVirtual.Backend.Model/Domain/AGSeguimientoUsuario.cs
-/OficinaVirtual/OficinaVirtual.Backend/OficinaVirtual.Backend.API.Service/App_Data/Hangfire.sqlite
-/POCs/WebApplication1
-/OficinaVirtual/OficinaVirtual.Backend/OficinaVirtual.Backend.API.Service/App_Data/AG
-/POCs/WebAndLoadTestProject1
-/OficinaVirtual/OficinaVirtual.Backend/OficinaVirtual.Backend.API.Service/App_Data/Hangfire.sqlite
-/OficinaVirtual/OficinaVirtual.Backend/OficinaVirtual.Backend.Model/Exception/CambioTitularidad/CuentaNoValidaException.cs
-/PortalMatriculados/PortalMatriculados.Test/lcov.info
-/PortalMatriculados/PortalMatriculados.API/appsettings.Local.json
