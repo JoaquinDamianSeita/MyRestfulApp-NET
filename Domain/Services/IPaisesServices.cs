@@ -1,3 +1,5 @@
+namespace MyRestfulApp_NET.Domain.Services;
+
 public interface IPaisesService
 {
     Task<Country> ObtenerInformacionPais(string codigoPais);

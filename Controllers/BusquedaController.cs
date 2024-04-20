@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using MyRestfulApp_NET.Domain.Services;
 
 namespace MyRestfulApp_NET.Controllers
 {
     [Produces("application/json")]
-    [ProducesResponseType(200)]
     [ApiController]
     public class BusquedaController : BaseController
     {

@@ -1,3 +1,5 @@
+namespace MyRestfulApp_NET.Common.Middlewares;
+
 using MyRestfulApp_NET.Common.Exceptions;
 using Newtonsoft.Json;
 

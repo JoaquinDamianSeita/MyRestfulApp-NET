@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using MyRestfulApp_NET.Domain.Services;
+using MyRestfulApp_NET.Domain.Services.Communication;
 
 namespace MyRestfulApp_NET.Controllers
 {
     [Produces("application/json")]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(401)]
     [ApiController]
     public class PaisesController : BaseController
     {
@@ -17,13 +17,13 @@ namespace MyRestfulApp_NET.Controllers
 
         [HttpGet("{pais}")]
         [ProducesResponseType(200)]
-        [ProducesResponseType(401)]
+        [ProducesResponseType(typeof(BasicMessageResponse), 401)]
         public async Task<IActionResult> GetPais(string pais)
         {
             var paisUpper = pais.ToUpper();
 
             if (paisUpper.Equals("BR") || paisUpper.Equals("CO"))
-                return Unauthorized(new { Message = "País inválido para la consulta." });     
+                return Unauthorized(new BasicMessageResponse(false, "País inválido para la consulta.", 1));
 
             var countryInfo = await _paisesService.ObtenerInformacionPais(paisUpper);
 

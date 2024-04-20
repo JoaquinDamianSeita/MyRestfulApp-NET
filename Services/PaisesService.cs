@@ -1,3 +1,5 @@
+namespace MyRestfulApp_NET.Domain.Services;
+
 public class PaisesService : IPaisesService
 {
     private readonly IMercadoLibreClient _mercadoLibreClient;
