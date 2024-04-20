@@ -1,9 +1,4 @@
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using MyRestfulApp_NET.Domain.Models;
 
 namespace MyRestfulApp_NET.Persistence.Contexts;

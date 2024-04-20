@@ -12,8 +12,11 @@ namespace MyRestfulApp_NET
             using (var scope = webHost.Services.CreateScope())
             {
                 var myDbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                var configuration = webHost.Services.GetRequiredService<IConfiguration>();
 
                 myDbContext.Database.Migrate();
+
+                DbInitializer.Initialize(myDbContext, configuration);
             }
 
             webHost.Run();

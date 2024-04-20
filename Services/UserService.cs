@@ -1,11 +1,11 @@
 namespace MyRestfulApp_NET.Services;
 
+using MyRestfulApp_NET.Common;
 using MyRestfulApp_NET.Domain.Models;
 using MyRestfulApp_NET.Domain.Repositories;
 using MyRestfulApp_NET.Domain.Services;
 using MyRestfulApp_NET.Domain.Services.Communication;
 using MyRestfulApp_NET.Resources;
-using System.Security.Cryptography;
 
 public class UserService : IUserService
 {
@@ -34,8 +34,8 @@ public class UserService : IUserService
         if (userSaveResource.Password == null)
             return new BasicMessageResponse(false, "Password is required", 1);
 
-        CreatePasswordHash(userSaveResource.Password, out byte[] passwordHash, out byte[] passwordSalt);
-
+        CreatePasswordHashHelper.CreatePasswordHash(userSaveResource.Password, out byte[] passwordHash, out byte[] passwordSalt);
+        
         var user = new User
         {
             Name = userSaveResource.Name,
@@ -87,24 +87,5 @@ public class UserService : IUserService
         _userRepository.Delete(user);
 
         return new BasicMessageResponse(true, "User deleted successfully!", 0);
-    }
-
-    private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-    {
-        var hmac = new HMACSHA512();
-        passwordSalt = hmac.Key;
-        passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-    }
-
-    private static bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt)
-    {
-        var hmac = new HMACSHA512(storedSalt);
-        var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-        for (int i = 0; i < computedHash.Length; i++)
-        {
-            if (computedHash[i] != storedHash[i]) return false;
-        }
-
-        return true;
     }
 }
