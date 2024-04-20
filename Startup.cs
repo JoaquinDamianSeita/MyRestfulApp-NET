@@ -1,3 +1,13 @@
+using FluentValidation.AspNetCore;
+using Microsoft.EntityFrameworkCore;
+using MyRestfulApp_NET.Common;
+using MyRestfulApp_NET.Common.Middlewares;
+using MyRestfulApp_NET.Domain.Repositories;
+using MyRestfulApp_NET.Domain.Services;
+using MyRestfulApp_NET.Persistence.Contexts;
+using MyRestfulApp_NET.Persistence.Repositories;
+using MyRestfulApp_NET.Services;
+
 namespace MyRestfulApp_NET
 {
     public class Startup
@@ -11,10 +21,33 @@ namespace MyRestfulApp_NET
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("MyRestfulApp"),
+                    sqlServerOptionsAction: sqlOptions =>
+                    {
+                        sqlOptions.EnableRetryOnFailure(
+                            maxRetryCount: 10,
+                            maxRetryDelay: TimeSpan.FromSeconds(30),
+                            errorNumbersToAdd: null);
+                    });
+            });
+
+            services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>()).ConfigureApiBehaviorOptions(options => {
+                options.InvalidModelStateResponseFactory = c => {
+                    var errors = string.Join('\n', c.ModelState.Values.Where(v => v.Errors.Count > 0)
+                        .SelectMany(v => v.Errors)
+                        .Select(v => v.ErrorMessage));
+
+                    return new ValidationErrorResponse { Message = errors };
+                };
+            });
 
             services.AddScoped<IPaisesService, PaisesService>();
             services.AddScoped<IBusquedaService, BusquedaService>();
+            services.AddScoped<IUserService, UserService>();
+
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddHttpClient<IMercadoLibreClient, MercadoLibreClient>();
 

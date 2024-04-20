@@ -76,3 +76,58 @@ Al ser ejecutado el proyecto se debe poder consumir datos de los siguientes endp
 **El objetivo es que se logre almacenar en disco un json con la estructura que devuelve el endpoint [Api Currencies de Mercado Libre](https://api.mercadolibre.com/currencies). Adicionalmente se debe incluir una nueva property "todolar" con el resultado del endpoint [Api Currency Conversion de Mercado Libre](https://api.mercadolibre.com/currency_conversions). Tené en cuenta que: El endpoint [Currency Conversion](https://api.mercadolibre.com/currency_conversions/toars) toma como parámetro en "from" el id de moneda correspondiente a un país. Id que es devuelto por el endpoint [Currencies](https://api.mercadolibre.com/currencies) - Para más información podés consultar la documentación de [Mercado Libre](https://developers.mercadolibre.com.ar/es_ar/currencies-and-conversions).**
 
 **Adicionalmente la misma aplicación tiene que almacenar en disco un archivo csv con cada uno de los resultados obtenidos de "currency_conversions", es decir debe almacenar sólo los resultados obtenidos de la property "ratio" (Ej: 0.0147275,0.013651,0.727565).**
+
+
+# Instrucciones para iniciar la API localmente por primera vez
+
+#### Ejecutar el siguiente comando para crear el contenedor de Docker con la imagen de SQL Server
+```bash
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=MyR3stfulApp_" -p 1433:1433 --name myrestfulapp-sqlserver -h myrestfulapp-sqlserver -d mcr.microsoft.com/mssql/server:2019-latest
+```
+
+#### Iniciar el contenedor de Docker con el siguiente comando
+```bash
+docker start {IDENTIFICADOR DEL CONTENEDOR}
+```
+
+#### Si no conocemos el identificador del contenedor, revisar el listado con el siguiente comando para obtener el dato
+```bash
+docker ps -a
+```
+
+### Es importante que el contenedor esté funcionando o la API no podrá conectarse con la base de datos.
+
+#### Con el siguiente comando, comprobamos el estado de los contenedores
+```bash
+docker ps
+```
+
+#### Si no aparece el contenedor, verificar si está detenido con el siguiente comando
+```bash
+docker ps -a
+```
+
+#### Veremos algo así en la terminal
+```
+CONTAINER ID   IMAGE                                                        COMMAND                  CREATED         STATUS                      PORTS                                       NAMES
+9c7584a99d47   mcr.microsoft.com/mssql/server:2019-latest                   "/opt/mssql/bin/perm…"   18 hours ago    Up 3 hours                  0.0.0.0:1433->1433/tcp, :::1433->1433/tcp   myrestfulapp-sqlserver
+```
+
+#### 9c7584a99d47 es el identificador del contenedor que necesitamos.
+
+#### La API se encarga de crear el schema correspondiente al hacer el build y run de la aplicación.
+```bash
+dotnet run
+```
+
+### No será necesario volver a crear el contenedor de Docker a menos que lo eliminemos.
+### Cada vez que queramos iniciar la API nuevamente, revisar el estado del contenedor e iniciarlo en caso de ser necesario.
+
+### La API al iniciar en modo local (IsLocalEnvironment = true) y si la tabla de usuarios esta vacia, generara datos de prueba.
+### Por lo tanto no es necesario correr ningun script para generar usuarios para probar.
+
+# Documentación de servicios
+
+#### Para acceder a la documentación de servicios, incorpore Swagger a la API para acceder a una documentación completa.
+#### Localmente, la API funciona en el puerto 7221. Con la siguiente URL: [https://localhost:7221/index.html](https://localhost:7221/index.html) accedemos a la vista de Swagger.
+#### Aquí podemos ver parámetros esperados, posibles respuestas de los servicios e incluso probar los servicios desde esta vista.
