@@ -2,6 +2,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using MyRestfulApp_NET.Common;
 using MyRestfulApp_NET.Common.Middlewares;
+using MyRestfulApp_NET.Domain.HttpClients;
 using MyRestfulApp_NET.Domain.Repositories;
 using MyRestfulApp_NET.Domain.Services;
 using MyRestfulApp_NET.Persistence.Contexts;
@@ -46,6 +47,7 @@ namespace MyRestfulApp_NET
             services.AddScoped<IPaisesService, PaisesService>();
             services.AddScoped<IBusquedaService, BusquedaService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICurrencyService, CurrencyService>();
 
             services.AddScoped<IUserRepository, UserRepository>();
 
@@ -61,29 +63,29 @@ namespace MyRestfulApp_NET
         {
             if (env.IsDevelopment())
             {
-                // En entorno de desarrollo, mostrar información detallada sobre errores
+                // In development environment, show detailed error information
                 app.UseDeveloperExceptionPage();
             }
             else
             {
-                // En otros entornos, manejar errores de manera más amigable
+                // In other environments, handle errors more friendly
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
 
-            // Agregar middleware para manejar excepciones personalizadas
+            // Add middleware to handle custom exceptions
             app.UseMiddleware<CustomExceptionHandlerMiddleware>();
 
-            // Agregar middleware para redirigir HTTP a HTTPS
+            // Add middleware to redirect HTTP to HTTPS
             app.UseHttpsRedirection();
 
-            // Agregar middleware para servir archivos estáticos (por ejemplo, HTML, CSS, imágenes)
+            // Add middleware to serve static files (for example, HTML, CSS, images)
             app.UseStaticFiles();
 
-            // Agregar middleware para enrutamiento y endpoints
+            // Add middleware for routing and endpoints
             app.UseRouting();
 
-            // Agregar Swagger UI al pipeline de solicitud
+            // Add Swagger UI to the request pipeline
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -91,12 +93,10 @@ namespace MyRestfulApp_NET
                 c.RoutePrefix = string.Empty;
             });
 
-            // Middleware para autenticación, autorización, etc. se agrega aquí si es necesario
-
-            // Agregar middleware para ejecutar el endpoint de la solicitud
+            // Add middleware to run the endpoint of the request
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers(); // Configurar enrutamiento para los controllers
+                endpoints.MapControllers();
             });
         }
     }
