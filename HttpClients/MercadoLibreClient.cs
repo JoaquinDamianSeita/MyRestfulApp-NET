@@ -1,4 +1,3 @@
-using System.Net;
 using System.Web;
 using MyRestfulApp_NET.Common.Exceptions;
 using MyRestfulApp_NET.HttpClients.Resources;

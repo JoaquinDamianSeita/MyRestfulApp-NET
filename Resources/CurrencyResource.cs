@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using MyRestfulApp_NET.HttpClients.Resources;
 
 namespace MyRestfulApp_NET.Resources;
 

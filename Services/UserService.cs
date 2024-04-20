@@ -1,11 +1,11 @@
-namespace MyRestfulApp_NET.Services;
-
 using MyRestfulApp_NET.Common;
 using MyRestfulApp_NET.Domain.Models;
 using MyRestfulApp_NET.Domain.Repositories;
 using MyRestfulApp_NET.Domain.Services;
 using MyRestfulApp_NET.Domain.Services.Communication;
 using MyRestfulApp_NET.Resources;
+
+namespace MyRestfulApp_NET.Services;
 
 public class UserService : IUserService
 {
