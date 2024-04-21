@@ -229,10 +229,13 @@ El patrón de diseño en capas es una técnica arquitectónica que organiza el c
 └── README.md
 ```
 ## Para ejecutar los tests con coverage ejecutar el siguiente comando desde la terminal
+
+### Linux
 ``` bash
 dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=./lcov.info /p:Exclude="[*]MyRestfulApp_NET_API.Migrations.*%2c[xunit.*]*%2c[*]ServiceReference1.*"
 ```
 
+### Windows
 ``` shell
 dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=lcov.info /p:Exclude="[MyRestfulApp_NET_API.Migrations.*]*%2c[xunit.*]*%2c[ServiceReference1.*]*"
 ```
