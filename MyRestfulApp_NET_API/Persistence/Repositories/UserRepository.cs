@@ -21,7 +21,16 @@ public class UserRepository : IUserRepository
 
     public async Task CreateAsync(User user)
     {
-        _context.User.Add(user);
+        var newUser = new User
+        {
+            Name = user.Name,
+            LastName = user.LastName,
+            Email = user.Email,
+            PasswordHash = user.PasswordHash,
+            PasswordSalt = user.PasswordSalt
+        };
+
+        await _context.User.AddAsync(newUser);
         await _context.SaveChangesAsync();
     }
 
