@@ -31,6 +31,19 @@ public class CustomExceptionHandlerMiddleware
             var jsonResponse = JsonConvert.SerializeObject(errorResponse);
             await context.Response.WriteAsync(jsonResponse);
         }
+        catch (Exception ex)
+        {
+            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+            context.Response.ContentType = "application/json";
+
+            var errorResponse = new ErrorResponse
+            {
+                Message = $"Internal Server Error: {ex.Message}"
+            };
+
+            var jsonResponse = JsonConvert.SerializeObject(errorResponse);
+            await context.Response.WriteAsync(jsonResponse);
+        }
     }
 
     private class ErrorResponse
