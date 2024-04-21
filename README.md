@@ -131,3 +131,105 @@ dotnet run
 #### Para acceder a la documentación de servicios, incorpore Swagger a la API para acceder a una documentación completa.
 #### Localmente, la API funciona en el puerto 7221. Con la siguiente URL: [https://localhost:7221/index.html](https://localhost:7221/index.html) accedemos a la vista de Swagger.
 #### Aquí podemos ver parámetros esperados, posibles respuestas de los servicios e incluso probar los servicios desde esta vista.
+
+# Estructura del proyecto
+## Patrón de Diseño en Capas
+El patrón de diseño en capas es una técnica arquitectónica que organiza el código en distintos niveles de abstracción, cada uno representando una responsabilidad específica dentro del sistema. Esta organización facilita la separación de preocupaciones y mejora la mantenibilidad, escalabilidad y la reutilización del código.
+
+## Estructura del proyecto
+
+``` bash
+├── MyRestfulApp_NET_API
+│   ├── appsettings.Development.json
+│   ├── appsettings.json
+│   ├── Common
+│   │   ├── CreatePasswordHashHelper.cs
+│   │   ├── Exceptions
+│   │   │   └── ExternalApiExeption.cs
+│   │   ├── Middlewares
+│   │   │   └── CustomExceptionHandlerMiddleware.cs
+│   │   └── ValidationErrorResponse.cs
+│   ├── Controllers
+│   │   ├── BaseController.cs
+│   │   ├── BusquedaController.cs
+│   │   ├── CurrenciesController.cs
+│   │   ├── PaisesController.cs
+│   │   └── UsersController.cs
+│   ├── Data
+│   ├── Domain
+│   │   ├── HttpClients
+│   │   │   └── IMercadoLibreClient.cs
+│   │   ├── Models
+│   │   │   └── User.cs
+│   │   ├── Repositories
+│   │   │   └── IUserRepository.cs
+│   │   └── Services
+│   │       ├── Communication
+│   │       │   ├── BasicMessageResponse.cs
+│   │       │   └── UpdateUserMessageResponse.cs
+│   │       ├── IBusquedaServices.cs
+│   │       ├── ICurrencyService.cs
+│   │       ├── IPaisesServices.cs
+│   │       └── IUserService.cs
+│   ├── HttpClients
+│   │   ├── MercadoLibreClient.cs
+│   │   └── Resources
+│   │       ├── MercadoLibreCountriesResources.cs
+│   │       ├── MercadoLibreCurrencyResources.cs
+│   │       └── MercadoLibreSearchResources.cs
+│   ├── Migrations
+│   │   ├── 20240419230423_CreateUsers.cs
+│   │   ├── 20240419230423_CreateUsers.Designer.cs
+│   │   └── AppDbContextModelSnapshot.cs
+│   ├── MyRestfulApp_NET_API.csproj
+│   ├── Persistence
+│   │   ├── Contexts
+│   │   │   ├── AppDbContext.cs
+│   │   │   └── DbInitializer.cs
+│   │   └── Repositories
+│   │       └── UserRepository.cs
+│   ├── Program.cs
+│   ├── Properties
+│   │   └── launchSettings.json
+│   ├── Resources
+│   │   ├── CurrencyResource.cs
+│   │   ├── UserResource.cs
+│   │   ├── UserSaveResource.cs
+│   │   └── UserUpdateResource.cs
+│   ├── Services
+│   │   ├── BusquedaService.cs
+│   │   ├── CurrencyService.cs
+│   │   ├── PaisesService.cs
+│   │   └── UserService.cs
+│   └── Startup.cs
+├── MyRestfulApp-NET-Proyect.sln
+├── MyRestfulApp_NET_TEST
+│   ├── appsettings.json
+│   ├── Common
+│   │   └── Middlewares
+│   │       └── CustomExceptionHandlerMiddlewareTest.cs
+│   ├── Controllers
+│   │   ├── BusquedaControllerTest.cs
+│   │   ├── CurrenciesControllerTest.cs
+│   │   ├── PaisesControllerTest.cs
+│   │   └── UsersControllerTest.cs
+│   ├── HttpClients
+│   │   └── MercadoLibreClientTest.cs
+│   ├── MyRestfulApp_NET_TEST.csproj
+│   ├── Persistence
+│   │   ├── DbContextMocker.cs
+│   │   └── Repositories
+│   │       └── UserRespositoryTest.cs
+│   ├── Services
+│   │   ├── BusquedaServiceTest.cs
+│   │   ├── CurrencyServiceTest.cs
+│   │   ├── PaisesServiceTest.cs
+│   │   └── UserServiceTest.cs
+│   └── StartupTest.cs
+└── README.md
+```
+## Para ejecutar los tests con coverage ejecutar el siguiente comando desde la terminal
+``` bash
+dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=./lcov.info /p:Exclude="[*]MyRestfulApp_NET_API.Migrations.*%2c[xunit.*]*%2c[*]ServiceReference1.*"
+```
+
