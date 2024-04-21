@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Xunit;
 
 namespace MyRestfulApp_NET_TEST.Controllers;
-public class BusquedaControllerTests
+public class BusquedaControllerTest
 {
     [Fact]
     public async Task BusquedaControllerGetBusquedaTestOk()

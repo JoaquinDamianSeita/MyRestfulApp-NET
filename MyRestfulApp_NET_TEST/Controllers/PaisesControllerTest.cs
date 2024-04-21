@@ -9,7 +9,7 @@ using Xunit;
 
 namespace MyRestfulApp_NET_TEST.Controllers;
 
-public class PaisesControllerTests
+public class PaisesControllerTest
 {
     [Fact]
     public async Task PaisesControllerGetPaisTestOk()
